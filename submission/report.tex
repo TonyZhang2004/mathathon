@@ -1,0 +1,424 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[table]{xcolor}
+\usepackage{booktabs,tabularx}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newcommand{\Th}{\operatorname{Th}}
+\newcommand{\KO}{\mathrm{KO}}
+\newcommand{\KU}{\mathrm{KU}}
+\newcommand{\tmf}{\mathrm{tmf}}
+\newcommand{\ko}{\mathrm{ko}}
+\newcommand{\ch}{\operatorname{ch}}
+\newcommand{\ind}{\operatorname{ind}}
+\newcommand{\Str}{\operatorname{Str}}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Ahat}{\widehat A}
+\newcommand{\Spin}{\mathrm{Spin}}
+\newcommand{\String}{\mathrm{String}}
+% Explicit title typography; the report remains self-contained.
+\title{{\fontsize{18}{22}\selectfont Orientations, Spin, and String}\\[4pt]
+  {\fontsize{11}{14}\selectfont Ordinary cohomology, real K-theory, and topological modular forms}}
+\author{Guanyu (Tony) Zhang\\{\small University of Michigan}
+  \and Jikun Li\\{\small University of California, Los Angeles}}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+An orientation, a spin structure, and a string structure each supply a Thom class in a different cohomology theory. We compare the characteristic classes and pushforwards arising from these orientations, beginning with the Thom construction of Stiefel--Whitney classes and ending with the relation between the Witten class and topological modular forms. Supersymmetric quantum mechanics gives a concrete interpretation of the Euler characteristic as a signed count of zero-energy states. The spinor and string models then explain why real K-theory and modular forms enter the comparison.
+\end{abstract}
+
+\noindent\textbf{AI disclosure.}
+ChatGPT generated the text of this brief draft. This revision was written with ChatGPT (GPT-6.1 Sol). The authors have given only the preliminary exposition a preliminary check and make no claim that all the material is accurate.
+
+\section*{Preliminary exposition}
+
+\section{Thom classes and integration}
+A geometric structure on a real vector bundle can determine how to integrate in a generalized cohomology theory. The three examples developed here arise from
+\[
+ MSO\longrightarrow H\Z,\qquad M\Spin\longrightarrow\ko\longrightarrow\KO,
+ \qquad M\String\longrightarrow\tmf.
+\]
+We work with stable spin and string structures and use connective \(\tmf\). The comparison starts with the common construction behind these maps.
+
+\begin{defn}[Thom space and Thom class]
+For a rank-\(r\) real vector bundle \(V\to X\) with a metric, its \emph{Thom space} is \(\Th(V)=D(V)/S(V)\), the quotient of its disk bundle by its sphere bundle. In a multiplicative cohomology theory \(E\), an \emph{\(E\)-Thom class} is a class \(U_E(V)\in\widetilde E^r(\Th(V))\) whose restriction to each fiber sphere is the suspended unit. A choice of such a class is an \emph{\(E\)-orientation}.
+\end{defn}
+
+Writing \(\pi:D(V)\to X\) for the projection, the Thom isomorphism is
+\begin{equation}\label{thom}
+ \Phi_{U_E}:E^k(X)\xrightarrow{\cong} E^{k+r}(D(V),S(V)),
+ \qquad a\longmapsto\pi^*a\smile U_E(V).
+\end{equation}
+The cup product pairs an absolute class of \(D(V)\) with a relative class of \((D(V),S(V))\). The relative group identifies with the reduced group of the Thom space.
+
+\begin{defn}[Euler class]
+If \(s:X_+\to\Th(V)\) is induced by the zero section, the \emph{\(E\)-Euler class} is \(e_E(V)=s^*U_E(V)\in E^r(X)\).
+\end{defn}
+A nowhere-zero section can be normalized into the sphere bundle and is homotopic to the zero section through the disk bundle. It follows that \(e_E(V)\) must vanish. In ordinary integral cohomology, the Euler class is the complete obstruction to one nowhere-zero section of an oriented rank-\(r\) bundle over an \(r\)-dimensional CW complex when \(r\geq 2\). Higher-dimensional bases can support further obstructions \cite{MS}.
+
+\subsection{From a principal bundle to a Thom spectrum}
+\begin{defn}[Thom spectrum of a stable bundle structure]
+A \emph{stable bundle structure} is specified by a map \(BG\to BO\). Its rank-\(n\) stage \(BG(n)\) can be taken as the homotopy pullback along \(BO(n)\to BO\). Let \(\xi_n\to BG(n)\) be the pullback of the universal rank-\(n\) real vector bundle. The \emph{Thom spectrum} is
+\[
+ MG=\operatorname*{colim}_n\Sigma^{-n}\Sigma^\infty\Th(\xi_n).
+\]
+The transition maps come from stabilization by a trivial real line.
+\end{defn}
+
+When the rank-\(n\) structure is presented by a group homomorphism \(\rho_n:G(n)\to O(n)\), the actual vector bundle in this definition is
+\[
+ \xi_n=EG(n)\times_{G(n)}\mathbb R^n\longrightarrow BG(n).
+\]
+The universal principal bundle \(EG(n)\to BG(n)\) supplies the transition functions. The representation \(\rho_n\) makes them act linearly on \(\mathbb R^n\). For spin structures, \(\rho_n\) is the double cover \(\Spin(n)\to SO(n)\) followed by inclusion into \(O(n)\). The bundle is formed using the vector representation. Spinor representations enter later, in the construction of its \(K\)-theory orientation.
+
+Fiberwise one-point compactification gives a bundle of based spheres \(S^{\xi_n}\to BG(n)\), with a section consisting of the point at infinity in each fiber. Collapsing this entire section to a point gives \(\Th(\xi_n)\). The stabilization \(BG(n)\to BG(n+1)\) pulls \(\xi_{n+1}\) back to \(\xi_n\oplus\underline{\mathbb R}\), so the map of Thom spaces has source \(\Th(\xi_n\oplus\underline{\mathbb R})\cong\Sigma\Th(\xi_n)\). Desuspending the resulting structure map gives the transition map in the colimit. Equivalently, the stable spherical fibration classified by
+\[
+ BG\longrightarrow BO\xrightarrow{J}BGL_1(\mathbb S)
+\]
+is a family of spectra locally equivalent to the sphere spectrum, and \(MG\) is its colimit \cite{ABGHR}. The map \(J\) is the stable \(J\)-homomorphism, induced by the action of orthogonal transformations on one-point compactifications.
+
+\begin{defn}[Multiplicative Thom orientation]
+For the bundle structures considered here, direct sum gives \(MG\) a multiplication. A \emph{multiplicative Thom orientation} is a unital multiplicative map \(MG\to E\), giving Thom classes compatible with pullback, stabilization, and direct sum.
+\end{defn}
+
+\subsection{The pushforward and the genus}
+Let \(p:M^d\to\mathrm{pt}\) be the map from a closed smooth manifold with an \(E\)-oriented stable tangent bundle. Choose an embedding \(M\hookrightarrow\mathbb R^{d+N}\) and a tubular neighborhood identified with a disk bundle of the rank-\(N\) normal bundle \(\nu\). Since \(TM\oplus\nu\cong\underline{\mathbb R}^{d+N}\), the stable normal bundle is the additive inverse of the stabilized tangent bundle. For the orientations here, the orientation of \(TM\), together with the standard orientation of the trivial bundle, induces \(U_E(\nu)\).
+
+\begin{defn}[Pontryagin--Thom collapse]
+The \emph{Pontryagin--Thom collapse} \(c:S^{d+N}\to\Th(\nu)\) first views \(S^{d+N}\) as the one-point compactification of the ambient Euclidean space. Inside the tubular neighborhood it sends the point corresponding to a normal vector \(v\in D(\nu)\) to \([v]\in D(\nu)/S(\nu)\). It sends the boundary, the complement, and the ambient point at infinity to the basepoint.
+\end{defn}
+
+\begin{defn}[Pushforward to a point]\label{def:pushforward}
+Fix a multiplicative cohomology theory represented by a unital ring spectrum \(E\). Let \(M\) be a closed smooth \(d\)-manifold, meaning compact and without boundary, and let \(p:M\to\mathrm{pt}\) be its unique map to a point. Choose a stable \(E\)-orientation \(o\) of its normal bundle. In the setting above, \(o\) is induced by the specified tangent orientation. For every integer \(k\), the \emph{pushforward to a point} is the homomorphism of abelian groups
+\[
+ \boxed{\quad p_{!,o}^{E,k}:E^k(M)\longrightarrow
+ E^{k-d}(\mathrm{pt})=\pi_{d-k}E.\quad}
+\]
+The domain is the degree-\(k\) cohomology group of \(M\). The codomain is the degree-\((k-d)\) coefficient group of \(E\). Our convention is
+\[
+ E^k(M)=[\Sigma^\infty M_+,\Sigma^kE],
+ \qquad E^r(\mathrm{pt})=\pi_{-r}E,
+\]
+where brackets denote homotopy classes of maps of spectra and \(M_+\) is \(M\) with a disjoint basepoint.
+
+To define the homomorphism, choose an embedding \(M\hookrightarrow\mathbb R^{d+N}\) with normal bundle \(\nu\), let \(U_o(\nu)\) be the Thom class specified by \(o\), and use its collapse map \(c\). Write
+\[
+ \kappa:E^{k+N}(D(\nu),S(\nu))
+ \xrightarrow{\cong}\widetilde E^{k+N}(\Th(\nu))
+\]
+for the relative-to-quotient identification, and write
+\[
+ \operatorname{susp}_{d+N}:E^{k-d}(\mathrm{pt})
+ \xrightarrow{\cong}\widetilde E^{k+N}(S^{d+N})
+\]
+for the suspension isomorphism. For \(a\in E^k(M)\), define
+\[
+ p_{!,o}^{E,k}(a)=
+ \operatorname{susp}_{d+N}^{-1}
+ \left(c^*\kappa\bigl(\pi^*a\smile U_o(\nu)\bigr)\right).
+\]
+Here \(\pi:D(\nu)\to M\). Thus the defining composite, with all intermediate domains and codomains, is
+\begin{equation}\label{pushforward}
+\begin{aligned}
+ E^k(M)&\xrightarrow{\pi^*}E^k(D(\nu))
+ \xrightarrow{\,b\mapsto b\smile U_o(\nu)\,}E^{k+N}(D(\nu),S(\nu))\\
+ &\xrightarrow{\kappa}\widetilde E^{k+N}(\Th(\nu))
+ \xrightarrow{c^*}\widetilde E^{k+N}(S^{d+N})
+ \xrightarrow{\operatorname{susp}_{d+N}^{-1}}E^{k-d}(\mathrm{pt}).
+\end{aligned}
+\end{equation}
+\end{defn}
+With \(o\) fixed, stabilization and isotopy of embeddings identify the resulting maps. The pushforward is therefore independent of the embedding, tubular neighborhood, and normal rank \(N\). It depends on the chosen stable \(E\)-orientation. We abbreviate it to \(p_!\) when \(E\), \(o\), and \(k\) are understood. Taken over all \(k\), these homomorphisms give a degree-\(-d\) map \(p_!:E^*(M)\to E^{*-d}(\mathrm{pt})\).
+
+The first arrow pulls the input back from \(M\) to the entire disk bundle. The second uses cup product with the relative Thom class, adding the normal rank \(N\) to its degree. The third regards a relative class as a reduced class on the quotient by the sphere bundle. The fourth maps a class on the Thom space to one on the ambient sphere by precomposing with \(c\). The last arrow desuspends by the ambient dimension \(d+N\), giving the net degree shift \(N-(d+N)=-d\).
+
+For \(k=0\), the input is \(1_M\in E^0(M)\), the unit pulled back along \(p\) from \(1\in E^0(\mathrm{pt})\). Its image has the explicit type
+\[
+ p_!(1_M)\in E^{-d}(\mathrm{pt})=\pi_dE.
+\]
+The unit \(1_M\) pulls back to the unit of \(E^0(D(\nu))\). The second arrow therefore sends it to \(U_E(\nu)\) itself. Represent the reduced Thom class by a stable map \(\Sigma^\infty\Th(\nu)\to\Sigma^N E\). After collapse and desuspension by \(N\) the representative of \(p_!(1)\) is
+\[
+ \mathbb S^d\longrightarrow \Sigma^{-N}\Sigma^\infty\Th(\nu)\longrightarrow E,
+ \qquad \mathbb S^d=\Sigma^d\mathbb S.
+\]
+For a \(G\)-manifold, the second map factors through \(MG\): the classifying map for \(\nu\) induces a map of Thom spaces \(\Th(\nu)\to\Th(\xi_N)\); desuspension and passage to the colimit give the map to \(MG\); the orientation then gives the map to \(E\). Under the Pontryagin--Thom theorem the resulting class in \(\pi_dMG\) is the \(G\)-bordism class of \(M\), using its induced normal structure.
+
+\begin{defn}[Genus]
+A \emph{genus} is a multiplicative bordism invariant, or equivalently a ring homomorphism from a bordism ring to a coefficient ring. The orientation \(MG\to E\) gives the \(E\)-valued genus \(\Omega_*^G\cong\pi_*MG\to\pi_*E\), with value \(p_!(1)\) on \(M\).
+\end{defn}
+Disjoint union adds these classes, Cartesian product multiplies them, and a \(G\)-boundary represents zero. For instance, in ordinary cohomology the positively oriented point maps to \(1\), whereas \(S^2\) maps to zero. Its Euler characteristic is \(2\) because the Euler calculation uses \(p_!(e(TS^2))\), with the Euler class as input.
+
+\section{Oriented bundles and ordinary cohomology}
+\subsection{Orientation and the integral Thom class}
+\begin{defn}[Ordinary orientation]
+An \emph{orientation} of a real rank-\(r\) bundle is a reduction of its orthonormal frame bundle from \(O(r)\) to \(SO(r)\). Equivalently, it is a continuous choice of generator of \(H^r(D(V_x),S(V_x);\Z)\) on the fibers.
+\end{defn}
+These generators assemble into the integral Thom class \(U_H(V)\). With \(\F_2\) coefficients, the two signs agree, so every real bundle has a canonical Thom class \(U_2(V)\). When \(V\) is oriented, reduction modulo two sends \(U_H\) to \(U_2\) \cite[\S\S8--10]{MS}.
+
+\subsection{Stiefel--Whitney classes}
+\begin{defn}[Stiefel--Whitney class]
+The \(i\)th \emph{Stiefel--Whitney class} is the unique \(w_i(V)\in H^i(X;\F_2)\) satisfying the Thom identity
+\[
+ \mathrm{Sq}^i U_2(V)=\pi^*w_i(V)\smile U_2(V).
+\]
+The \emph{total Stiefel--Whitney class} is \(w(V)=\sum_i w_i(V)\).
+\end{defn}
+The first class \(w_1(V)\) records the sign changes of the local orientations and obstructs their assembly into a global one. The identity \(\mathrm{Sq}^0=1\) gives \(w_0=1\), while instability gives \(w_i=0\) for \(i>r\). The Cartan formula applied to the Thom class of a direct sum yields \(w(V\oplus W)=w(V)\smile w(W)\). At the top degree, \(\mathrm{Sq}^rU_2=U_2\smile U_2\) gives \(w_r=s^*U_2\) via the Thom isomorphism. Thus, on an oriented bundle, the ordinary Euler class \(e(V)=s^*U_H(V)\) reduces to \(w_r(V)\) \cite{MS}.
+
+\subsection{Signed zeros and zero-energy states}\label{zeros}
+An orientation determines the sign of a transverse zero of a section of an oriented rank-\(d\) bundle over an oriented \(d\)-manifold. The derivative at the zero is an isomorphism from the tangent space to the fiber, and its sign records whether it preserves the two orientations. For a vector field on a closed oriented manifold, Poincar\'e--Hopf gives the signed count as \(\langle e(TM),[M]\rangle=\chi(M)\). In pushforward notation this count is \(p_!^{H\Z}(e(TM))\). In positive dimension \(p_!^{H\Z}(1)\) lands in the zero group \(H^{-d}(\mathrm{pt};\Z)\).
+
+Supersymmetric quantum mechanics produces the same signed count through a different construction. Its signs come from even and odd states, and the energy operator determines which states contribute.
+
+\begin{defn}[Supercharge, zero-energy state, and Witten index]
+Consider a graded Hilbert space \(\mathcal H=\mathcal H^+\oplus\mathcal H^-\) and an odd self-adjoint operator \(Q\), called a \emph{supercharge}. We use the normalization \(H=Q^2\) for the \emph{Hamiltonian}, the energy operator. A \emph{zero-energy state} is a vector in \(\ker H\). When \(e^{-tH}\) is trace class for \(t>0\), the \emph{Witten index} is its supertrace, the trace on \(\mathcal H^+\) minus that on \(\mathcal H^-\).
+\end{defn}
+
+On the domain of \(H\), the identity \(\langle H\psi,\psi\rangle=\|Q\psi\|^2\) makes the energy nonnegative and identifies \(\ker H\) with \(\ker Q\). To see why the trace singles out this kernel, let \(\mathcal H_E^\pm\) denote the two parity spaces at an eigenvalue \(E>0\). The supercharge commutes with \(H\) and switches parity. Since \(Q^2=E\) on that eigenspace, \(Q/\sqrt E\) gives inverse isomorphisms between \(\mathcal H_E^+\) and \(\mathcal H_E^-\). Each pair contributes \(e^{-tE}-e^{-tE}=0\). At \(E=0\), \(Q\) vanishes and supplies no such pairing. For the compact geometric models here this leaves
+\begin{equation}\label{index}
+\Str(e^{-tH})=\dim(\ker Q\cap\mathcal H^+)-\dim(\ker Q\cap\mathcal H^-).
+\end{equation}
+
+\begin{defn}[De Rham supersymmetric quantum mechanics]
+On a closed Riemannian manifold take \(\mathcal H=L^2\Omega^\bullet(M;\mathbb C)\), graded by form degree modulo two, and take \(Q=d+d^*\), where \(d^*\) is the metric adjoint of \(d\). Its square is the \emph{Hodge Laplacian} \(\Delta=dd^*+d^*d\). A form in \(\ker\Delta\) is called \emph{harmonic}.
+\end{defn}
+
+In degree \(k\) the energy identity becomes
+\[
+\langle \Delta\omega,\omega\rangle=\|d\omega\|^2+\|d^*\omega\|^2.
+\]
+Thus a harmonic \(k\)-form is both closed and coclosed. Let \(\Delta_k\) be the Laplacian on \(k\)-forms. Its heat operator is trace class for \(t>0\) on a closed manifold. Using the positive-energy cancellation in \eqref{index}, the comparison is
+\[
+\begin{aligned}
+ \Str(e^{-t\Delta})
+ &=\sum_{k=0}^{d}(-1)^k\dim_{\mathbb C}\ker\Delta_k
+ &&\text{(positive-energy cancellation)}\\
+ &=\sum_{k=0}^{d}(-1)^k\dim_{\mathbb C}H^k(M;\mathbb C)
+ &&\text{(Hodge and de Rham theorems)}\\
+ &=\chi(M)
+ &&\text{(Euler--Poincar\'e formula).}
+\end{aligned}
+\]
+The middle step is an isomorphism in each degree: \(\omega\mapsto[\omega]\) identifies \(\ker\Delta_k\) with de Rham cohomology, and integration of forms identifies the latter with singular cohomology. For the final step, take a finite cell decomposition of \(M\). In each degree the dimension of the cellular cochain group is the sum of the dimensions of cohomology, incoming coboundaries, and outgoing coboundaries. In the alternating sum the two coboundary terms cancel between consecutive degrees, leaving the alternating cell count. This explains why the signed zero-energy count is independent of both \(t\) and the metric \cite[\S\S1--2]{Wm}.
+
+On the round \(S^2\), the constants and multiples of the volume form give one zero-energy state each, both even. There are no harmonic one-forms, so the index is \(1-0+1=2\). The de Rham model uses only a Riemannian metric. Orientation enters the description of the same number as an integral Euler-class pairing.
+
+\section{Spin bundles and real K-theory}
+\subsection{Spin lifts and Clifford multiplication}
+\begin{defn}[Spin structure and torsor]
+A \emph{spin structure} is a lift of the oriented orthonormal frame bundle through the double cover \(\Spin(r)\to SO(r)\), or its stable equivalent. A \emph{torsor} for a group is a set with a free and transitive action of that group.
+\end{defn}
+The obstruction to the spin lift is \(w_2(V)\). When a lift exists, its isomorphism classes form a torsor for \(H^1(X;\F_2)\). The lifted transition functions allow one to glue local spinors, since the central element covering the identity in \(SO(r)\) can act by a sign on spinors.
+
+\begin{defn}[Clifford multiplication and spinor bundles]
+\emph{Clifford multiplication} is the action \(c\) of vectors on a Clifford module with
+\[
+ c(v)c(w)+c(w)c(v)=-2\langle v,w\rangle\operatorname{id}.
+\]
+The \emph{spinor bundle} is associated to the spin frame bundle via the spin representation. In even rank its complex version splits into \emph{half-spinor bundles} \(S^+\) and \(S^-\), the two chirality summands exchanged by Clifford multiplication.
+\end{defn}
+
+The Atiyah--Bott--Shapiro orientation \(M\Spin\to\ko\to\KO\), from connective to periodic real K-theory, gives a spin bundle its Thom class \(U_{\KO}(V)\) in degree \(r\) and the Euler class \(e_{\KO}(V)\) via the zero section \cite{ABS,AHR}. Clifford multiplication explains the construction. Since \(c(v)^2=-\|v\|^2\operatorname{id}\), it is invertible away from the zero section. For \(r=2m\), complexification followed by the Bott identification with degree zero gives the relative class
+\[
+ [\pi^*S^+,\pi^*S^-,c(v)]\in\KU^0(D(V),S(V)).
+\]
+Here \(\KU\) is periodic complex K-theory. The triple specifies two bundles and an identification on the sphere bundle. Its zero-section pullback is \([S^+]-[S^-]\). The real Thom class retains its degree modulo eight, whereas the complex degree uses Bott periodicity modulo two.
+
+\subsection{Spinors as quantum states}
+\begin{defn}[Spin Dirac operator]
+The \emph{spin Dirac operator} \(D\) is the covariant derivative on spinors, formed from the Levi-Civita connection lifted to the spin bundle and contracted by Clifford multiplication. In even dimension \(D^+\) denotes its component from positive to negative chirality.
+\end{defn}
+A \(2\pi\) rotation lifts to the central element \(-1\) in the spin group. This acts by the fermionic sign on spinors, and the spin structure makes the sign consistent across coordinate charts. In even dimensions one can take \(Q=D\) on \(L^2(S^+\oplus S^-)\), with chirality supplying the grading. Formula \eqref{index} becomes \(\ind_{\mathbb C}D^+\), whose density is \(\Ahat(TM)\) (Section~\ref{sec:ahat}). With differential forms as states, the same cancellation instead gives the Euler characteristic. Real Clifford symmetries retain the finer \(\KO\)-index, including cases in which the surviving invariant is a parity \cite{TYK}.
+
+\section{String structures}
+\begin{defn}[String structure and string class]\label{def:string-structure}
+Let \(\lambda\in H^4(B\Spin;\Z)\) be the universal integral spin class with \(2\lambda=p_1\), discussed in Section~\ref{sec:integral-spin}. The stable space \(B\String\) is the homotopy fiber of \(\lambda:B\Spin\to K(\Z,4)\). For a fixed spin classifying map \(f:X\to B\Spin\), a \emph{string structure} is a lift to \(B\String\), equivalently a nullhomotopy of \(\lambda\circ f\). A \emph{string class} is the corresponding class in \(H^3(P_{\Spin}(V);\Z)\) restricting to the stable generator on each spin-group fiber \cite{Redden}.
+\end{defn}
+
+\section{Research status of the three orientations}
+The three cases differ in how far the local geometric data lead to an index or an integral in the target theory.
+
+\begin{table}[!htbp]
+\centering
+\caption{Geometric constructions and physical interpretations of the three orientations}
+\label{tab:orientation-status}
+\small
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{6pt}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{.17\linewidth}%
+    >{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Structure and theory} &
+\textbf{Local geometry and Thom orientation} &
+\textbf{Physical interpretation and status}\\
+\midrule
+\textbf{\(SO\)}\newline \(M SO\to H\Z\) &
+Oriented frames determine consistent signs on the disk fibers and yield the ordinary Thom class \cite{MS}. &
+\textbf{Established.} Signed integration and zero counting. In de Rham supersymmetric quantum mechanics, the even-minus-odd count of zero-energy states gives \(\chi(M)\) \cite{Wm}.\\
+\addlinespace[4pt]
+\textbf{\(\Spin\)}\newline \(M\Spin\to\KO\) &
+Lifted frame transitions glue spinors. Clifford multiplication gives the Atiyah--Bott--Shapiro Thom class \cite{ABS,AHR}. &
+\textbf{Established.} The spin Dirac operator acts as a supercharge. Its real Clifford index realizes the \(KO\)-valued pushforward of \(1\) \cite{BEKO,TYK}.\\
+\addlinespace[4pt]
+\rowcolor{blue!7}
+\textbf{\(\String\)}\newline \(M\String\to\tmf\) &
+A string lift is a trivialization of the degree-four spin class. Smooth geometric models of this lift and the topological sigma orientation are established \cite{Redden,WaldorfString,AHR}. &
+\textbf{Open in general.} Two-dimensional sigma models motivate the Witten genus. A field-theoretic construction of the integral \(\mathrm{TMF}\)-valued index remains conjectural \cite{ST,BE}.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+In the \(SO\) case, the de Rham count equals \(p_!^{H\Z}(e(TM))=\chi(M)\) for a closed oriented manifold. The Stolz--Teichner program asks for a field-theoretic index that agrees with the string pushforward after passing from connective \(\tmf\) to periodic \(\mathrm{TMF}\) \cite{ST,BE}. Partial constructions already detect some torsion invariants \cite{BETorsion}. The discussion under \emph{Future directions} takes up the geometry of the string lift and its role in the sigma model as background for this index problem.
+
+\clearpage
+\section*{Future directions}
+
+\noindent\textbf{The material under \emph{Future directions} has not yet been checked.}\par
+
+\section{Integral spin classes and real K-theory}
+\subsection{Integral spin classes and the spin index}\label{sec:integral-spin}
+\begin{defn}[Pontryagin and integral spin classes]
+The \emph{Pontryagin classes} of a real bundle are \(p_i(V)=(-1)^ic_{2i}(V\otimes_{\mathbb R}\mathbb C)\). The first stable \emph{integral spin characteristic class} \(\lambda\) on \(B\Spin\) satisfies \(2\lambda=p_1\) and \(\lambda\bmod 2=w_4\). We write \(\lambda(V)\) for its pullback along the spin classifying map. The second stable spin class \(q_2\) satisfies \(2q_2=p_2-\lambda^2\) and \(q_2\bmod 2=w_8\) \cite{FH}.
+\end{defn}
+The notation \(p_1/2\) for \(\lambda\) refers to this universal class. On a space with two-torsion in \(H^4(X;\Z)\), the equation \(2\lambda(V)=p_1(V)\) alone can have several solutions.
+
+The first divisibility relation is suggested by \(\rho_2(p_1)=w_2^2\), where \(\rho_2\) is reduction modulo two. The spin lift makes this reduction vanish. Likewise \(\rho_2(p_2)=w_4^2\), so after choosing the universal lift \(\lambda\) it is \(p_2-\lambda^2\) that is divisible by two. The universal normalizations give natural integral classes and identify their reductions. In particular, \(\lambda\) gives the next lifting obstruction in the passage from spin to string.
+
+\begin{defn}[Integral lift and Bockstein]
+An \emph{integral lift} of \(a\in H^j(X;\F_2)\) is a class in \(H^j(X;\Z)\) with reduction \(a\). The \emph{integral Bockstein} \(\beta:H^j(X;\F_2)\to H^{j+1}(X;\Z)\) is the connecting map of \(0\to\Z\xrightarrow{2}\Z\to\F_2\to0\).
+\end{defn}
+Exactness says that \(a\) has a lift precisely when \(\beta(a)=0\). The identity \(\rho_2\beta=\mathrm{Sq}^1\) gives a practical obstruction. For an oriented bundle the Wu formula reads \(\mathrm{Sq}^1w_{2i}=w_{2i+1}\), so all odd classes \(w_{2i+1}\) have integral lifts \(\beta(w_{2i})\), which are killed by two. For example, the universal \(w_7\) has the nonzero lift \(\beta(w_6)\). Products such as \(w_4w_8\) also lift, here to \(\lambda q_2\). Higher integral spin characteristic classes exist as well, with mod-two formulas that can involve combinations of Stiefel--Whitney classes \cite{Duan}.
+
+Among the individual nonzero even classes of positive degree on stable \(B\Spin\), only \(w_4\) and \(w_8\) lift. Indeed, the stable mod-two cohomology is polynomial on the \(w_j\) with \(j\ge2\) and \(j\ne 2^a+1\) for \(a\ge0\) \cite{AM}. For even \(j\) that is not a power of two, the generator \(w_{j+1}\) is nonzero and obstructs a lift. For \(j=2^a\ge16\), use the Whitney sum map \(B\Spin\times B\Spin\to B\Spin\). The bidegree \((7,j-6)\) component of the pullback of \(w_{j+1}\) is \(w_7\otimes w_{j-6}\), nonzero since both factors are polynomial generators. This again obstructs the lift. The conclusion concerns the universal stable classes. On a particular bundle, the pulled-back Bockstein can vanish.
+
+\subsection{Formal roots and the \texorpdfstring{\(\Ahat{}\)}{A-hat}-class}\label{sec:ahat}
+\begin{defn}[Splitting principle and formal roots]
+For a complex vector bundle \(W\), the \emph{splitting principle} uses a flag bundle \(f:F(W)\to X\) for which \(f^*\) on cohomology is injective and \(f^*W\) splits, after choosing a metric, as a sum of line bundles \(L_j\). The classes \(x_j=c_1(L_j)\) are the \emph{formal Chern roots} of \(W\). Thus \(f^*c(W)=\prod_j(1+x_j)\), with \(c_i\) the \(i\)th elementary symmetric polynomial in the roots.
+\end{defn}
+The flag bundle is built by successive projectivizations, whose projective bundle formulas give the injection. The roots live on this auxiliary space. Their symmetric polynomials can be written in the Chern classes and so define classes on \(X\). For example, \(x_1^2+x_2^2=(x_1+x_2)^2-2x_1x_2\) gives \(c_1^2-2c_2\). This turns computations for arbitrary bundles into computations on line bundles.
+
+For a real oriented rank-\(r\) bundle \(V\), the rational version of this calculation uses the maximal torus of \(SO(r)\). Its defining representation rotates mutually orthogonal oriented real two-planes, with one additional trivial line when \(r\) is odd. An oriented two-plane can be treated as a complex line, and its complexification is the sum of that line and its conjugate. Hence the roots of \(V_{\mathbb C}\) come in pairs \(x_j,-x_j\), with an extra zero in odd rank. The total Chern factor of a pair is \(1-x_j^2\), so the Pontryagin factor is \(1+x_j^2\). The restriction from \(BSO(r)\) to its maximal torus is injective in rational cohomology. A product of even power series in the \(x_j\) has homogeneous terms symmetric in \(x_j^2\), hence expressible in the \(p_i(V)\). This is how a formula on individual rotation planes produces a characteristic class of \(V\) \cite{MS}.
+
+\begin{defn}[The \(\Ahat{}\)-class]
+For formal roots \(\pm x_j\) of the complexified bundle, normalized by \(p(V)=\prod_j(1+x_j^2)\), the \emph{\(\Ahat{}\)-class} is
+\[
+ \Ahat(V)=\prod_j\frac{x_j/2}{\sinh(x_j/2)}
+ =1-\frac{p_1}{24}+\frac{7p_1^2-4p_2}{5760}+\cdots .
+\]
+The \emph{\(\Ahat{}\)-genus} of a closed oriented manifold is \(\Ahat(M)=\langle \Ahat(TM),[M]\rangle\), using its top-degree component.
+\end{defn}
+
+With compatible chirality and Bott conventions, the difference of half-spinor characters is \(\prod_j(e^{x_j/2}-e^{-x_j/2})=e(V)\smile\Ahat(V)^{-1}\) in even rank. The corresponding Thom-space calculation gives
+\[
+ \ch(U_{\KU}^{\mathrm{Bott}}(V))=\pi^*\Ahat(V)^{-1}\smile U_H(V)
+\]
+in total relative rational cohomology, with \(U_H\) rationalized. Applying this identity to the normal bundle \(\nu\) of \(M\) replaces the inverse factor by \(\Ahat(TM)\), since \(TM\oplus\nu\) is trivial. The index theorem identifies the resulting number with the complex spin Dirac index in even dimension \cite{ABS,Wl}.
+
+\begin{defn}[The \(\alpha\)-invariant]
+For a closed spin \(d\)-manifold, the \emph{\(\alpha\)-invariant} is \(\alpha(M)=p_!^{\KO}(1)\in\pi_d\KO\).
+\end{defn}
+In degrees \(0,\ldots,7\) modulo eight the coefficient groups are \(\Z,\Z/2,\Z/2,0,\Z,0,0,0\). The rational characteristic number loses the mod-two information in degrees one and two. In degree four modulo eight, complexification sends a real integral generator to twice a complex generator, so the complex index is twice the real coordinate in these degrees.
+
+\section{String structures and topological modular forms}
+\subsection{Trivializing the degree-four class}
+The obstruction to the lift in Definition~\ref{def:string-structure} is \(\lambda(V)\), and the choices form an \(H^3(X;\Z)\)-torsor when it vanishes. Changing the structure changes the class on the spin frame bundle by pullback from \(X\). Together with the homotopy-fiber descriptions of \(BSO\) and \(B\Spin\) via \(w_1\) and \(w_2\), this places the three obstructions in degrees \(1,2,4\) and the differences of lifts in degrees \(0,1,3\). Even when \(p_1(V)=0\), a two-torsion \(\lambda(V)\) can obstruct the last lift.
+
+\subsection{The sigma orientation and the Witten class}\label{sec:sigma-orientation}
+\begin{defn}[Sigma orientation and topological Witten genus]
+Write \(\tmf\) for the connective spectrum of topological modular forms. The \emph{sigma orientation} is the multiplicative orientation \(\sigma:M\String\to\tmf\) of Ando, Hopkins, and Rezk. The image \(\sigma[M]=p_!^{\tmf}(1)\in\pi_d\tmf\) of a closed string \(d\)-manifold is its \emph{topological Witten genus} \cite{AHR,Hopkins}.
+\end{defn}
+The orientation gives the degree-\(r\) Thom class \(U_{\tmf}(V)\) and its Euler pullback \(e_{\tmf}(V)\). Rationally, \(\pi_*\tmf\otimes\Q=\Q[c_4,c_6]\) with generator degrees \(8\) and \(12\), twice their modular weights. The integral spectrum retains torsion and divisibility phenomena. The related spectra \(\mathrm{Tmf}\) and \(\mathrm{TMF}\) use nonconnective and periodic constructions, respectively.
+
+\begin{defn}[Witten class and scalar Witten genus]
+The \emph{Witten class} is the series
+\[
+ W(V;q)=\prod_j\left(\frac{x_j/2}{\sinh(x_j/2)}
+ \prod_{n\ge1}\frac{(1-q^n)^2}{(1-e^{x_j}q^n)(1-e^{-x_j}q^n)}\right).
+\]
+Its evaluation \(\varphi_W(M;q)=\langle W(TM;q)_{4k},[M]\rangle\) on a closed oriented \(4k\)-manifold is the \emph{scalar Witten genus} in the complex-index normalization.
+\end{defn}
+Each factor is one at \(x_j=0\), so the class is stable under adding trivial bundles. At \(q=0\) it gives \(\Ahat(V)\). The factors also have a K-theoretic interpretation. If \(\mathrm{Sym}_t(A)=\sum_{a\ge0}[\mathrm{Sym}^a A]t^a\) denotes the total symmetric power, extended to virtual bundles by multiplicativity, then
+\[
+ \Theta_q(V)=\bigotimes_{n\ge1}\mathrm{Sym}_{q^n}(V_{\mathbb C}-\mathbb C^r),
+ \qquad W(V;q)=\Ahat(V)\smile\ch(\Theta_q(V)).
+\]
+For instance, the coefficient of \(q\) in \(\Theta_q(V)\) is \(V_{\mathbb C}-\mathbb C^r\). On a spin manifold, the coefficients of the scalar genus are complex Dirac indices twisted by the corresponding virtual bundles \cite{BN,Wl}.
+
+Expanding the logarithm exposes the role of the string condition:
+\[
+ \log W(V;q)=-\frac{E_2(q)}{24}p_1(V)
+  +\frac{E_4(q)}{2880}(p_1(V)^2-2p_2(V))+\cdots .
+\]
+Here \(E_2=1-24\sum_{n\ge1}\sigma_1(n)q^n\) and \(E_4=1+240\sum_{n\ge1}\sigma_3(n)q^n\) are normalized Eisenstein series, with \(\sigma_a(n)=\sum_{d\mid n}d^a\). In this expansion the degree-\(4j\) term uses the series of weight \(2j\). Only \(E_2\) has an anomalous transformation term. When \(p_1=2\lambda=0\), the remaining weight-\(2k\) expression is modular. In dimension eight this leaves
+\[
+ \varphi_W(M;q)=-\frac{\langle p_2(TM),[M]\rangle}{1440}E_4(q)
+ =\Ahat(M)E_4(q).
+\]
+The calculation uses rational vanishing, while the sigma orientation uses a chosen integral string lift \cite{BN,We}.
+
+At the level of Thom classes the comparison proceeds through the Tate-curve \(q\)-expansion \(\tmf\to\ko[[q]]\to\KO[[q]]\). After complexification, with complex Bott normalization in even rank, the formula is
+\[
+ \ch(U_{\tmf}^{\mathrm{Tate,Bott}}(V))
+ =\pi^* W(V;q)^{-1}\smile U_H(V).
+\]
+As in spin geometry, the normal bundle converts the reciprocal into the tangent characteristic series in the pushforward. Evaluating at \(q=0\) recovers the spin orientation \cite{AHR,BN}.
+
+\subsection{Loop-space geometry and the physical motivation}
+\begin{defn}[Free loop space and transgression]
+The \emph{free loop space} is \(LM=\operatorname{Map}(S^1,M)\). The \emph{transgression} of a class \(a\in H^k(M;\Z)\) is
+\(\tau a=\int_{S^1}\mathrm{ev}^*a\in H^{k-1}(LM;\Z)\), using evaluation \(\mathrm{ev}:S^1\times LM\to M\). In the loop-space description of string structures, \emph{fusion} is compatibility of the lifted data with the joining of loops.
+\end{defn}
+The configuration of a closed string at a fixed time is a point of \(LM\). Its history is a map from a two-dimensional surface, the worldsheet, into \(M\). In the loop-group description of spinor data, the obstruction is governed by \(\tau\lambda(TM)\). A string structure supplies coherent trivialization data. To recover the target-space structure from the loop-space description one needs fusion \cite{Waldorf}.
+
+\begin{defn}[Pfaffian line and anomaly]
+For a family of worldsheet fermion operators, the \emph{Pfaffian line} is the line bundle over the space of fields in which the fermionic functional integral takes values. In this model the \emph{anomaly} is the obstruction to consistently trivializing the relevant line data so that these local amplitudes define a scalar globally.
+\end{defn}
+A geometric string structure provides a coherent trivialization in the relevant model \cite{Bunke}. Its differential-form data include a three-form satisfying \(dH=\lambda(\nabla^{TM})\) with normalized characteristic forms. With gauge fields, the obstruction can instead involve \(\lambda(TM)-a(E)\) and the corresponding difference of forms, where \(a(E)\) is the normalized gauge characteristic class \cite{SSS}.
+
+Closing both worldsheet directions gives a torus \(\mathbb C/(\Z+\tau\Z)\) with \(\operatorname{Im}\tau>0\). Changing the basis of the lattice acts by \(SL_2(\Z)\), giving a geometric source for modular symmetry. The variable \(q=e^{2\pi i\tau}\) tracks levels of the string excitations, and the symmetric powers organize their multiplicities. Supersymmetry motivates an index-like torus amplitude, with normalization fixed here by the displayed characteristic series \cite{Wl,We,TYK}. Witten's formal loop-space Dirac picture motivates the genus, while the sigma orientation constructs it topologically. The Stolz--Teichner program proposes a field-theoretic description of elliptic cohomology and \(\mathrm{TMF}\) in terms of two-dimensional supersymmetric field theories \cite{ST,BE}.
+
+\section{Examples}
+\subsection{The spin obstruction on \texorpdfstring{\(\mathbb{CP}^2\)}{the complex projective plane}}
+The complex tangent bundle of \(\mathbb{CP}^2\) has total Chern class \((1+h)^3\), where \(h\) generates \(H^2(\mathbb{CP}^2;\Z)\). The underlying real bundle is oriented. Its second Stiefel--Whitney class is \(c_1\bmod2=h\bmod2\), which obstructs a spin lift.
+
+\subsection{The two spin structures on the circle}
+On the circle of circumference \(2\pi\), \(D=-i\,d/d\theta\) has eigenfunctions of the form \(Ce^{i\mu\theta}\). Periodic boundary conditions give \(\mu\in\Z\), including the constant zero mode. Antiperiodic boundary conditions give \(\mu\in\Z+\tfrac12\) and hence an empty zero eigenspace. The antiperiodic structure extends over the disk. The periodic structure has \(\alpha=1\) in \(\KO_1=\Z/2\), given by the parity of the complex kernel dimension in this case \cite[Appendix A]{TYK}.
+
+\subsection{K3 and the integral string obstruction}
+For a K3 surface, \(c_1=0\) and \(c_2=24u\), where \(\langle u,[K3]\rangle=1\). For a quartic in \(\mathbb{CP}^3\), these follow by dividing \((1+h)^4\) by \(1+4h\) and using \(\langle h^2,[K3]\rangle=4\). All positive-degree Stiefel--Whitney classes vanish, yet \(p_1=c_1^2-2c_2=-48u\) and \(\lambda=-24u\). Thus K3 has a spin lift with a nonzero string obstruction. Its complex index is \(-\langle p_1,[K3]\rangle/24=2\), so its real index generates \(\KO_4\) \cite{FH}.
+
+\subsection{Varying the string structure on \texorpdfstring{\(S^3\)}{the three-sphere}}\label{sec:s3-string-example}
+Fix the string structure \(a_0\) extending over \(D^4\). With the convention \(a_n=a_0-nv\) for the orientation generator \(v\in H^3(S^3;\Z)\), the sigma orientation sends \([S^3,a_n]\) to \(n\nu\), where \(\nu\) generates \(\pi_3\tmf\cong\Z/24\). The sigma orientation is an isomorphism from string bordism in this degree \cite[\S\S2.2,6]{BN}. Both the scalar characteristic number and the \(\KO[[q]]\) image vanish in degree three. The topological genus detects the choice of string lift.
+
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{.8pt}\setlength{\parsep}{0pt}
+\bibitem{MS} J. W. Milnor and J. D. Stasheff, \emph{Characteristic Classes}, Annals of Mathematics Studies 76, Princeton University Press, 1974.
+\bibitem{ABGHR} M. Ando, A. J. Blumberg, D. Gepner, M. J. Hopkins, and C. Rezk, An \(\infty\)-categorical approach to \(R\)-line bundles, \(R\)-module Thom spectra, and twisted \(R\)-homology, \href{https://arxiv.org/abs/1403.4325}{arXiv:1403.4325}.
+\bibitem{Duan} H. Duan, The characteristic classes and Weyl invariants of Spinor groups, \href{https://arxiv.org/abs/1810.03799}{arXiv:1810.03799}.
+\bibitem{AM} J. Buchanan and S. McKean, \(KSp\)-characteristic classes determine \(\mathrm{Spin}^h\) cobordism, \emph{Algebr. Geom. Topol.} 26 (2026), 485--551, Proposition 4.1.
+\bibitem{ABS} M. F. Atiyah, R. Bott, and A. Shapiro, Clifford modules, \emph{Topology} 3, suppl. 1 (1964), 3--38.
+\bibitem{AHR} M. Ando, M. J. Hopkins, and C. Rezk, Multiplicative orientations of KO-theory and of the spectrum of topological modular forms, preprint, version 0.5, 2010.
+\bibitem{Hopkins} M. J. Hopkins, Algebraic topology and modular forms, ICM 2002, \href{https://arxiv.org/abs/math/0212397}{arXiv:math/0212397}.
+\bibitem{FH} D. S. Freed and M. J. Hopkins, Consistency of M-theory on nonorientable manifolds, \emph{Q. J. Math.} 72 (2021), 603--671.
+\bibitem{Redden} C. Redden, String structures and canonical 3-forms, \href{https://arxiv.org/abs/0912.2086}{arXiv:0912.2086}.
+\bibitem{BN} U. Bunke and N. Naumann, Secondary invariants for string bordism and tmf, \href{https://arxiv.org/abs/0912.4875}{arXiv:0912.4875}.
+\bibitem{Wm} E. Witten, Supersymmetry and Morse theory, \emph{J. Differential Geom.} 17 (1982), 661--692.
+\bibitem{Wl} E. Witten, The index of the Dirac operator in loop space, \emph{Lecture Notes in Mathematics} 1326, Springer, 1988, 161--181.
+\bibitem{We} E. Witten, Elliptic genera and quantum field theory, \emph{Commun. Math. Phys.} 109 (1987), 525--536.
+\bibitem{Waldorf} K. Waldorf, String structures and loop spaces, \href{https://arxiv.org/abs/2312.12998}{arXiv:2312.12998}.
+\bibitem{Bunke} U. Bunke, String structures and trivialisations of a Pfaffian line bundle, \emph{Commun. Math. Phys.} 307 (2011), 675--712.
+\bibitem{SSS} H. Sati, U. Schreiber, and J. Stasheff, Twisted differential String and Fivebrane structures, \href{https://arxiv.org/abs/0910.4001}{arXiv:0910.4001}.
+\bibitem{ST} S. Stolz and P. Teichner, Supersymmetric field theories and generalized cohomology, \href{https://arxiv.org/abs/1108.0189}{arXiv:1108.0189}.
+\bibitem{BE} D. Berwick-Evans, Elliptic cohomology and quantum field theory, \href{https://arxiv.org/abs/2408.07693}{arXiv:2408.07693}.
+\bibitem{WaldorfString} K. Waldorf, String connections and Chern--Simons theory, \href{https://arxiv.org/abs/0906.0117}{arXiv:0906.0117}.
+\bibitem{BEKO} D. Berwick-Evans, The families Clifford index and differential \(KO\)-theory, \href{https://arxiv.org/abs/2303.09091}{arXiv:2303.09091}.
+\bibitem{BETorsion} D. Berwick-Evans, How do field theories detect the torsion in topological modular forms?, \href{https://arxiv.org/abs/2303.09138}{arXiv:2303.09138}.
+\bibitem{TYK} Y. Tachikawa, M. Yamashita, and K. Yonekura, Remarks on mod-2 elliptic genus, \href{https://arxiv.org/abs/2302.07548}{arXiv:2302.07548}.
+\end{thebibliography}
+\end{document}

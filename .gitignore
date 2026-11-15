@@ -1,0 +1,24 @@
+# Required submission files live in submission/ and remain visible to Git.
+# Local working sources, styles, previews, archives, and reference attachments.
+/slides/
+/sources/
+/report-build/
+/AGENTS.md
+
+# Platform and editor files.
+.DS_Store
+._*
+*~
+*.swp
+
+# TeX compiler intermediates; final PDFs are deliberately not ignored.
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
